@@ -1,71 +1,17 @@
 #Step 4
 
-import random
+import random, hangman_art, hangman_words
 
-stages = ['''
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
- /    |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
-=========''', '''
-  +---+
-  |   |
-  O   |
-  |   |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-      |
-      |
-      |
-      |
-=========
-''']
-end_of_game = False
-world_list = ["ardvark","baboon","camel"]
-chosen_word = random.choice(world_list)
+word_list = hangman_words.word_list
+chosen_word = random.choice(word_list)
 word_length = len(chosen_word)
 
-#TODO-1: - Create a variable called 'lives' to keep track of the number of lives left.
-#Set 'lives' to equal 6.
+
+end_of_game = False
 lives = 6
+
+logo = hangman_art.logo
+print(logo)
 
 #Testing code
 print(f'Pssst, the solution is {chosen_word}.')
@@ -79,6 +25,9 @@ for _ in range(word_length):          # or for _ in range(len(chosen_word)):
 while not end_of_game:       #or while end_of_game is == to False
     guess = input("Guess a letter: ").lower()
 
+    if guess in display:
+        print(f"You have already guessed {guess}")
+
     #Check guessed letter
     for position in range(word_length):
         letter = chosen_word[position]
@@ -86,14 +35,15 @@ while not end_of_game:       #or while end_of_game is == to False
         if letter == guess:
             display[position] = letter
 
-    #TODO-2: - If guess is not a letter in the chosen_word,
-    #then reduce 'lives' by 1.
-    #if lives goes down to 0 then the game should stop and it should print "You lose."
+    #check if user is wrong.
     if guess not in chosen_word:
+        print(f"You guessed {guess}, that's not in the word. You lose a life.")
         lives -= 1
         if lives == 0:
             end_of_game = True
-            print("You lose.")
+
+    if guess not in chosen_word:
+        print(f"Your guess is: '{guess}', and it is not in the word")
 
 
     #join all the elements in the list and turn it into a String.
@@ -104,8 +54,8 @@ while not end_of_game:       #or while end_of_game is == to False
         end_of_game = True
         print("You Win.")
 
-    #TODO-3: - print the ASCII art from 'stages' that corresponds to the current number of 'lives' the user has remaining.
-    print(f" You have {lives} lives remaining")
+    stages = hangman_art.stages
+    print(f"You have {lives} lives remaining")
     print(stages[lives])
     if lives == 0:
         print("You Lose")
