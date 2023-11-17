@@ -24,6 +24,8 @@ for _ in range(word_length):          # or for _ in range(len(chosen_word)):
 while not end_of_game:       #or while end_of_game is == to False
     guess = input("Guess a letter: ").lower()
 
+    clear()
+
     if guess in display:
         print(f"You have already guessed {guess}")
 
