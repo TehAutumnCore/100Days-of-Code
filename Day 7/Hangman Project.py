@@ -89,7 +89,11 @@ while not end_of_game:       #or while end_of_game is == to False
     #TODO-2: - If guess is not a letter in the chosen_word,
     #then reduce 'lives' by 1.
     #if lives goes down to 0 then the game should stop and it should print "You lose."
-    if letter
+    if guess not in chosen_word:
+        lives -= 1
+        if lives == 0:
+            end_of_game = True
+            print("You lose.")
 
 
     #join all the elements in the list and turn it into a String.
@@ -101,3 +105,8 @@ while not end_of_game:       #or while end_of_game is == to False
         print("You Win.")
 
     #TODO-3: - print the ASCII art from 'stages' that corresponds to the current number of 'lives' the user has remaining.
+    print(f" You have {lives} lives remaining")
+    print(stages[lives])
+    if lives == 0:
+        print("You Lose")
+
